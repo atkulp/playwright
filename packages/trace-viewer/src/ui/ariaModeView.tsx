@@ -267,6 +267,7 @@ const AriaModeScreenshot: React.FunctionComponent<{
     {overlays}
     {timestampStyle && <TimestampOverlay
       wallTime={screencastFrame ? screencastFrame.wallTime : screenshotWallTime}
+      label={screencastFrame ? 'Frame' : 'Screenshot'}
       approximate={screencastFrame ? screencastFrame.approximate : true}
       style={timestampStyle} />}
   </div>;

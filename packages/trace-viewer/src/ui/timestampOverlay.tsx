@@ -22,13 +22,14 @@ import './timestampOverlay.css';
 
 export const TimestampOverlay: React.FC<{
   wallTime: number | undefined,
+  label?: string,
   approximate?: boolean,
   style?: React.CSSProperties,
-}> = ({ wallTime, approximate, style }) => {
+}> = ({ wallTime, label = 'Snapshot', approximate, style }) => {
   const [showTimestamp] = useSetting('showSnapshotTimestamp', false);
   const [timeZone] = useSetting<TimeZone>('timestampTimeZone', 'local');
   const text = showTimestamp ? formatWallTime(wallTime, timeZone) : undefined;
   if (!text)
     return null;
-  return <span className='timestamp-overlay' data-testid='snapshot-timestamp' title={approximate ? 'Approximate capture time' : 'Frame capture time'} style={style}>{text}</span>;
+  return <span className='timestamp-overlay' title={approximate ? 'Approximate capture time' : 'Frame capture time'} style={style}>{label}: <span data-testid='snapshot-timestamp'>{text}</span></span>;
 };

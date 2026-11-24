@@ -238,6 +238,7 @@ export const SnapshotView: React.FunctionComponent<{
         {screencastFrame?.content}
         {overlayStyle && scale > 0 && <TimestampOverlay
           wallTime={screencastFrame ? screencastFrame.wallTime : domSnapshotWallTime}
+          label={screencastFrame ? 'Frame' : 'Snapshot'}
           approximate={screencastFrame?.approximate}
           style={{
             ...overlayStyle,

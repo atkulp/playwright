@@ -255,6 +255,8 @@ test('TV-146 uses the displayed frame time while scrubbing', async ({ showTraceV
   const timeline = viewer.page.getByTestId('timeline-timestamp');
   await expect(screenshot).toHaveText('21:42:18.073Z');
   await expect(timeline).toHaveText('21:42:18.073Z');
+  await expect(viewer.page.locator('.timestamp-overlay')).toContainText('Frame:');
+  await expect(viewer.page.locator('.playback-timestamp')).toContainText('Frame:');
 
   await viewer.page.mouse.move(rect.x + rect.width * 0.85, rect.y + rect.height / 2);
   await expect(screenshot).toHaveText('21:42:18.420Z');
@@ -262,6 +264,7 @@ test('TV-146 uses the displayed frame time while scrubbing', async ({ showTraceV
   await viewer.page.mouse.up();
   await expect(screenshot).toHaveText('21:42:18.100Z');
   await expect(timeline).toHaveText('21:42:18.050Z');
+  await expect(viewer.page.locator('.playback-timestamp')).toContainText('Action start:');
 });
 
 test('TV-147 shows the hovered film strip frame time', async ({ showTraceViewer }, testInfo) => {
@@ -342,8 +345,9 @@ test('TV-151 keeps frame timestamps readable in a scaled snapshot', async ({ sho
   const rect = (await slider.boundingBox())!;
   await viewer.page.mouse.move(rect.x + rect.width * 0.3, rect.y + rect.height / 2);
   await viewer.page.mouse.down();
-  const overlay = viewer.page.locator('.snapshot-switcher').getByTestId('snapshot-timestamp');
-  await expect(overlay).toHaveText('21:42:18.073Z');
+  const overlay = viewer.page.locator('.snapshot-switcher .timestamp-overlay');
+  const timestamp = overlay.getByTestId('snapshot-timestamp');
+  await expect(timestamp).toHaveText('21:42:18.073Z');
   expect((await overlay.boundingBox())!.height).toBeGreaterThanOrEqual(18);
   await viewer.page.mouse.up();
 });

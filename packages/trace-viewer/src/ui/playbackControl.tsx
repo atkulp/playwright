@@ -293,6 +293,7 @@ export const PlaybackScrubber: React.FC<{
   const wallTime = frame ? model?.frameWallTime(frame) :
     playback.screencastTime !== undefined ? model?.timelineWallTime(playback.positionTime) :
       selectedAction ? model?.actionWallTime(selectedAction) : model?.timelineWallTime(playback.positionTime);
+  const timestampLabel = frame ? 'Frame' : playback.screencastTime !== undefined || !selectedAction ? 'Timeline' : 'Action start';
   const timestamp = showTimelineTimestamp ? formatWallTime(wallTime, timeZone) : undefined;
   const onKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
@@ -328,6 +329,6 @@ export const PlaybackScrubber: React.FC<{
       className={'playback-thumb' + (playback.animating ? ' animated' : '')}
       style={{ 'left': `${playback.percent}%` }}
     />
-    {timestamp && <div className='playback-timestamp' data-testid='timeline-timestamp' style={{ left: `${Math.max(10, Math.min(90, playback.percent))}%` }}>{timestamp}</div>}
+    {timestamp && <div className='playback-timestamp' style={{ left: `${Math.max(10, Math.min(90, playback.percent))}%` }}>{timestampLabel}: <span data-testid='timeline-timestamp'>{timestamp}</span></div>}
   </div>;
 };

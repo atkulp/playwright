@@ -701,6 +701,8 @@ When tracing with the [`option: Tracing.start.screenshots`] option turned on (de
 
 In Trace Viewer settings, you can enable **Display snapshot timestamp** and **Display timeline timestamp** independently. Choose **UTC** or **Local** under **Time zone** to control these timestamps and the start time in the Metadata tab. The default is **Local**. In **UTC** mode, the Metadata tab shows the start time in ISO 8601 format, for example `2024-01-02T21:42:18.000Z`. The timestamps supplement the elapsed times and are hidden when the trace does not contain a reliable wall-clock time.
 
+The labels identify which event each timestamp represents. **Action start** on the timeline is the selected action's start time. While you scrub or play the trace, **Frame** is the capture time of the displayed screencast frame. **Screenshot** and **Snapshot** are the capture times of the displayed screenshot and DOM snapshot. These times can differ because Playwright captures action snapshots and screencast frames at different points during an action. While scrubbing, the timeline and image timestamps match when both refer to the same recorded frame. Frame timestamps can advance in steps because they are only recorded when a frame is captured.
+
 The screenshot setting applies to recorded screenshots, screencast frames, and DOM snapshots. Screencast capture times may be approximate. Video frames without individual capture times do not show an overlay.
 
 Double click on an action to see the time range for that action. You can use the slider in the timeline to increase the actions selected and these will be shown in the Actions tab and all console logs and network logs will be filtered to only show the logs for the actions selected.

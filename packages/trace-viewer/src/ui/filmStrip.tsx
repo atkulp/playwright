@@ -121,7 +121,7 @@ const FilmStripFramePreview: React.FunctionComponent<{
   const [loadedUrl, setLoadedUrl] = React.useState<string>();
   return <>
     <img src={url} width={size.width} height={size.height} onLoad={() => setLoadedUrl(url)} />
-    <TimestampOverlay wallTime={loadedUrl === url ? wallTime : undefined} approximate={approximate} />
+    <TimestampOverlay wallTime={loadedUrl === url ? wallTime : undefined} label='Frame' approximate={approximate} />
   </>;
 };
 
